@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('input:radio[name=resolution]:input[value={{resolution}}]').attr('checked', true)
+    $("#capture_button").click(function(){
+	var ts = new Date().getTime();
+        $("#div1").html("<img src='/capture?timestamp=" + ts + "'/>");
+    });
+    $("#config_button").click(function(event) {
+        var formData = $("#config_form").serialize();
+        $.get("/config?" + formData, function(data, status) {
+            alert(data + "\nStatus: " + status);
+        });
+        event.preventDefault();
+    });
+});
+</script>
+</head>
+
+
+<body>
+
+<h2> Configuration </h2>
+
+<form id="config_form">
+  Annotate Text:<br/>
+  <input type="text" name="annotate" value="{{annotate_text}}">
+  <br/>
+  <br/>
+  
+  Resolution:<br/>
+  <input type="radio" name="resolution" value="1920x1080"> 1920x1080<br>
+  <input type="radio" name="resolution" value="1280x720"> 1280x720<br>
+  <input type="radio" name="resolution" value="640x480"> 640x480<br>
+  
+  <!-- 
+  TODO: Brightness, Contrast, image_effect 와 같은 다른 설정도 추가해볼 것
+  -->
+  
+  <button id="config_button">Save</button>
+</form>
+
+<hr>
+
+<button id="capture_button">Capture</button>
+
+<div id="div1"><h2>Capture Image</h2></div>
+
+</body>
+</html>

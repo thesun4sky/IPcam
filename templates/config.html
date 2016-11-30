@@ -2,11 +2,46 @@
 <html>
 
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hansung IP cam</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="vendor/device-mockups/device-mockups.min.css">
+
+    <!-- Theme CSS -->
+    <link href="css/new-age.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 <script>
 $(document).ready(function(){
     $('input:radio[name=resolution]:input[value={{resolution}}]').attr('checked', true)
     $("#capture_button").click(function(){
+        console.log("click button");
 	var ts = new Date().getTime();
         $("#div1").html("<img src='/capture?timestamp=" + ts + "'/>");
     });
@@ -18,37 +53,82 @@ $(document).ready(function(){
         event.preventDefault();
     });
 });
+
+    function resolution_fnc(w,h){
+        var device = $('#device');
+        device.width(w+80);
+        device.height(h+60);
+    }
 </script>
 </head>
 
 
 <body>
 
-<h2> Configuration </h2>
 
-<form id="config_form">
-  Annotate Text:<br/>
-  <input type="text" name="annotate" value="{{annotate_text}}">
-  <br/>
-  <br/>
-  
-  Resolution:<br/>
-  <input type="radio" name="resolution" value="1920x1080"> 1920x1080<br>
-  <input type="radio" name="resolution" value="1280x720"> 1280x720<br>
-  <input type="radio" name="resolution" value="640x480"> 640x480<br>
-  
-  <!-- 
-  TODO: Brightness, Contrast, image_effect 와 같은 다른 설정도 추가해볼 것
-  -->
-  
-  <button id="config_button">Save</button>
-</form>
+<section id="features" class="features bg-primary" style="padding-top: 50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="container-fluid">
+                    <div class="row">
+                        <form id="config_form">
+                            Annotate Text:<br/>
+                            <input type="text" class="form-control" placeholder="annotate" value="{{annotate_text}}">
+                            <br/>
+                            <br/>
+                            Resolution:<br/>
+                            <div class="radio">
+                                <input type="radio" onclick="resolution_fnc(1920,1080)" name="resolution" value="1920x1080"> 1920x1080<br>
+                                <input type="radio" onclick="resolution_fnc(1280,720)" name="resolution" value="1280x720"> 1280x720<br>
+                                <input type="radio" onclick="resolution_fnc(640,480)" name="resolution" value="640x480"> 640x480<br>
+                            </div>
+                            <!--
+                            TODO: Brightness, Contrast, image_effect 와 같은 다른 설정도 추가해볼 것
+                            -->
 
-<hr>
+                            <button id="config_button" class="btn btn-success">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="feature-item" style="margin-bottom: 0px">
+                    <i class="icon-camera text-primary"></i>
+                    <h3>Flexible Use</h3>
+                    <span class="glyphicon glyphicon-picture" style="font-size: xx-large"></span>
+                    <p class="text-muted">Capture and check out it from the screen!</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-12">
+                <div class="device-container">
+                    <div class="device-mockup iphone6_plus landscape white">
+                        <div id="device" class="device" style="width: 100%; height: 100%">
+                            <div class="screen">
+                                <div id="div1"><h2>Capture Image</h2></div>
+                            </div>
+                            <button class="button" id="capture_button" style="width: 80px;color: #3b5998">capture
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<button id="capture_button">Capture</button>
+        </div>
+    </div>
+</section>
 
-<div id="div1"><h2>Capture Image</h2></div>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+<!-- Theme JavaScript -->
+<script src="js/new-age.min.js"></script>
 
 </body>
 </html>
